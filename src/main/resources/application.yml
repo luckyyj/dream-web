@@ -1,0 +1,95 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://mysql-test.dg.com:1234/pms
+    username: pms
+    password: 3H2tEcT^sZx&$p1B
+    druid:
+      # 初始连接数
+      initialSize: 5
+      # 最小连接池数量
+      minIdle: 10
+      # 最大连接池数量
+      maxActive: 20
+      # 配置获取连接等待超时的时间
+      maxWait: 60000
+      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      timeBetweenEvictionRunsMillis: 60000
+      # 配置一个连接在池中最小生存的时间，单位是毫秒
+      minEvictableIdleTimeMillis: 300000
+      # 配置一个连接在池中最大生存的时间，单位是毫秒
+      maxEvictableIdleTimeMillis: 900000
+      # 配置检测连接是否有效
+      validationQuery: select 'x'
+      # 建议配置为true，不影响性能，并且保证安全性。申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效
+      testWhileIdle: true
+      # 申请连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能
+      testOnBorrow: false
+      # 归还连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能
+      testOnReturn: false
+      # 配置监控服务器
+      statViewServlet:
+        enable: true
+        login-username: admin
+        login-password: 123456
+        reset-enable: false
+        url-pattern: /druid/*
+        # 添加IP白名单
+        #allow:
+        # 添加IP黑名单，当白名单和黑名单重复时，黑名单优先级更高
+        #deny:
+      # 采集web-jdbc关联监控的数据
+      webStatFilter:
+        # 添加过滤规则
+        urlPattern: /*
+        # 忽略过滤格式
+        exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*"
+  #  kafka:
+  #    bootstrap-servers: 120.76.245.2:9092
+  #    producer:
+  #      # 发生错误后，消息重发的次数。
+  #      retries: 0
+  #      # 键的序列化方式
+  #      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+  #      # 值的序列化方式
+  #      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+  #    consumer:
+  #      group-id: test
+  #      # 键的反序列化方式
+  #      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+  #      # 值的反序列化方式
+  #      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+  #    listener:
+  #      # 但消费者监听的topic不存在时，保证能够是项目启动
+  #      missing-topics-fatal: false
+
+  #redis:
+  #  database: 1
+  #  host: 127.0.0.1
+  #  port: 6379
+  #  password: 123456
+  #rabbitmq:
+  #  host: 127.0.0.1
+  #  port: 5672
+  #  username: zhdj
+  #  password: 123456
+  #  virtual-host: zhdj
+mybatis-plus:
+  mapperLocations: classpath*:mapper/**/*.xml
+  typeAliasesPackage: cn.com.dream.**.model.entity
+  global-config:
+    db-config:
+      #主键类型  0:自增,1:none,2:输入,3:雪花,4:uuid
+      idType: 0
+      #字段策略 0:"忽略判断",1:"非 NULL 判断",2:"非空判断"
+      field-strategy: 2
+      #逻辑删除配置
+      #logic-delete-value: 1
+      #logic-not-delete-value: 0
+logging:
+  file:
+    name: dream.log
+  level:
+    cn.com.dream: debug
