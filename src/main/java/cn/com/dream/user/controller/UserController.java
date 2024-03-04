@@ -1,41 +1,33 @@
 package cn.com.dream.user.controller;
 
-import cn.com.dream.user.dao.UserDao;
+import cn.com.dream.common.model.LoginUser;
+import cn.com.dream.common.model.ResponseData;
+import cn.com.dream.common.util.RedisUtil;
 import cn.com.dream.user.model.entity.UserEntity;
 import cn.com.dream.user.service.UserService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @Slf4j
 @RestController
-@RequestMapping({"/user"})
+@RequestMapping("/user")
 public class UserController {
     @Autowired
     private UserService userService;
 
     @Autowired
-    private UserDao userDao;
+    private RedisUtil redisUtil;
 
-    @GetMapping({"/test"})
-    public void test(){
-        List<UserEntity> userEntities = userDao.listTest();
-        System.out.println("111");
+    @GetMapping("/test")
+    public ResponseData test() {
+        LoginUser loginUser = (LoginUser) SecurityUtils.getSubject().getPrincipal();
+        return ResponseData.buildSuccess(loginUser.getUserName());
     }
-
-
-   /* @PostMapping({"/login"})
-    public void login(@RequestParam String abc, @RequestParam String password) {
-        Subject subject = SecurityUtils.getSubject();
-        UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(abc, password);
-        subject.login((AuthenticationToken)usernamePasswordToken);
-        System.out.println(");
-    }*/
 
     @GetMapping({"/page"})
     public IPage<UserEntity> page(Integer pageNum, Integer pageSize) {

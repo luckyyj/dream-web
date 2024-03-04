@@ -52,6 +52,10 @@
 
     <!-- 系统日志级别  -->
     <logger name="cn.com.dream" level="info"/>
+
+    <!-- debug模式可以打印sql  -->
+    <logger name="cn.com.dream.user.dao" level="debug"/>
+
     <!-- Spring日志级别  -->
     <logger name="org.springframework" level="warn"/>
 

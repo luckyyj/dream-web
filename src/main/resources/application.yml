@@ -2,6 +2,7 @@ server:
   port: 8080
 spring:
   datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
     driverClassName: com.mysql.jdbc.Driver
     url: jdbc:mysql://mysql-test.dg.com:1234/pms
     username: pms
@@ -65,20 +66,19 @@ spring:
   #      # 但消费者监听的topic不存在时，保证能够是项目启动
   #      missing-topics-fatal: false
 
-  #redis:
-  #  database: 1
-  #  host: 127.0.0.1
-  #  port: 6379
-  #  password: 123456
-  #rabbitmq:
-  #  host: 127.0.0.1
-  #  port: 5672
-  #  username: zhdj
-  #  password: 123456
-  #  virtual-host: zhdj
+  redis:
+    database: 1
+    host: 10.2.24.3
+    port: 6379
+    password: Smonitor!@#2023
+#  rabbitmq:
+#    host: 127.0.0.1
+#    port: 5672
+#    username: zhdj
+#    password: 123456
+#    virtual-host: zhdj
 mybatis-plus:
   mapperLocations: classpath*:mapper/**/*.xml
-  typeAliasesPackage: cn.com.dream.**.model.entity
   global-config:
     db-config:
       #主键类型  0:自增,1:none,2:输入,3:雪花,4:uuid
@@ -88,8 +88,3 @@ mybatis-plus:
       #逻辑删除配置
       #logic-delete-value: 1
       #logic-not-delete-value: 0
-logging:
-  file:
-    name: dream.log
-  level:
-    cn.com.dream: debug
