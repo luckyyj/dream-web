@@ -14,8 +14,8 @@ import lombok.NoArgsConstructor;
 @TableName("user_info")
 public class UserEntity {
 
-    @TableId(type = IdType.INPUT)
-    private String userId;
+    @TableId(type = IdType.ASSIGN_ID)
+    private String id;
 
     private String userName;
 

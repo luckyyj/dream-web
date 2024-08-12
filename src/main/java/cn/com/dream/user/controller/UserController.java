@@ -40,14 +40,14 @@ public class UserController {
 
     public void update() {
         UserEntity updateUserPO = new UserEntity();
-        updateUserPO.setUserId("001");
+        updateUserPO.setId("001");
         updateUserPO.setPersonName("update");
         userService.updateById(updateUserPO);
     }
 
     public void add() {
         UserEntity addUserPO = new UserEntity();
-        addUserPO.setUserId("001");
+        addUserPO.setId("001");
         addUserPO.setPersonName("22");
         userService.add(addUserPO);
     }

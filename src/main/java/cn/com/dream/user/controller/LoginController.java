@@ -33,14 +33,14 @@ public class LoginController {
     @PostMapping({"/login"})
     public ResponseData<LoginUser> login(@RequestParam String userName, @RequestParam String password) {
         UserEntity userEntity = userService.getByUserName(userName);
-        if (ObjectUtil.isEmpty(userEntity) || !DigestUtil.md5Hex(password).equals(userEntity.getPassword())) {
+        if (ObjectUtil.isEmpty(userEntity) || !password.equals(userEntity.getPassword())) {
             throw new BaseException("用户不存在");
         }
         Date now = new Date();
         String token = TokenGenerator.generateValue();
         LoginUser loginUser = new LoginUser();
         loginUser.setToken(token);
-        loginUser.setUserId(userEntity.getUserId());
+        loginUser.setUserId(userEntity.getId());
         loginUser.setUserName(userEntity.getUserName());
         loginUser.setLoginTime(now.getTime());
         loginUser.setExpireTime(now.getTime() + 60 * 60 * 1000);

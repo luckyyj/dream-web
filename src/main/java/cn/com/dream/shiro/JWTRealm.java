@@ -5,6 +5,7 @@ import cn.com.dream.common.util.RedisUtil;
 import cn.com.dream.user.service.UserService;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Component;
 /**
  * 认证
  */
+@Slf4j
 @Component
 public class JWTRealm extends AuthorizingRealm {
 
@@ -54,11 +56,13 @@ public class JWTRealm extends AuthorizingRealm {
         // 根据accessToken，查询用户信息
         String tokenVal = redisUtil.get("dream:login:" + accessToken);
         if (StrUtil.isBlank(tokenVal)) {
+            log.error("doGetAuthenticationInfo---缓存token为空");
             throw new IncorrectCredentialsException("token失效，请重新登录");
         }
         LoginUser loginUser = JSONUtil.toBean(tokenVal, LoginUser.class);
         // token失效
         if (loginUser.getExpireTime() < System.currentTimeMillis()) {
+            log.error("doGetAuthenticationInfo---token失效");
             throw new IncorrectCredentialsException("token失效，请重新登录");
         }
         SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(loginUser, accessToken, getName());

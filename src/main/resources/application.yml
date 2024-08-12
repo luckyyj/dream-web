@@ -3,10 +3,10 @@ server:
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
-    driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://mysql-test.dg.com:1234/pms
-    username: pms
-    password: 3H2tEcT^sZx&$p1B
+    driverClassName: dm.jdbc.driver.DmDriver
+    url: jdbc:dm://127.0.0.1:5236?schema=SYSDBA&zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&clobAsString=true
+    username: SYSDBA
+    password: SYSDBA
     druid:
       # 初始连接数
       initialSize: 5
@@ -68,9 +68,9 @@ spring:
 
   redis:
     database: 1
-    host: 10.2.24.3
+    host: 10.2.6.23
     port: 6379
-    password: Smonitor!@#2023
+    password: A8x2SjwM5fpT
 #  rabbitmq:
 #    host: 127.0.0.1
 #    port: 5672
