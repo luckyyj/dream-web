@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8687
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
@@ -68,9 +68,8 @@ spring:
 
   redis:
     database: 1
-    host: 10.2.6.23
+    host: 127.0.0.1
     port: 6379
-    password: A8x2SjwM5fpT
 #  rabbitmq:
 #    host: 127.0.0.1
 #    port: 5672
